@@ -88,7 +88,6 @@ int main(void)
     wdt_reset();
     wdt_enable(WDTO_8S);    
 
-    init_serial();
     init_mac(mymac);      
     init_udp_or_www_server(mymac,myip);             
 
@@ -145,8 +144,6 @@ int main(void)
                     if(!first)
                     {
                         /* TODO: Recover from here ... */
-                        xprintf(PSTR("Fatal error!\r\n"));
-                        xprintf(PSTR("p: %3u  c: %3u\r\n"),prev,curr);
                         while(1);                
                     }
                     else

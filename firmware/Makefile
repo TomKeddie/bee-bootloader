@@ -5,7 +5,7 @@
 ###############################################################################
 
 ### Project name (also used for output file name)
-PROJECT = main
+PROJECT = ain
 
 ### Source files and search directory
 CSRC    = main.c 
@@ -37,10 +37,11 @@ BOOTSTART = 0x7000
 
 ### Include dirs, library dirs and definitions
 LIBS	=
-LIBDIRS	=
-INCDIRS	=
+LIBDIRS	= -L /Applications/Arduino.app/Contents/Java/hardware/tools/avr/avr/lib/avr
+INCDIRS	= -I /Applications/Arduino.app/Contents/Java/hardware/tools/avr/avr/include
 DEFS	= F_CPU=$(F_OSC)
 ADEFS	= F_CPU=$(F_OSC)
+ASFLAGS += $(INCDIRS)
 
 ### Optimization level (0, 1, 2, 3, 4 or s)
 OPTIMIZE = s
@@ -59,11 +60,11 @@ OUTPUT	= ihex
 DEBUG	= # dwarf-2
 
 ### Programs to build porject
-CC      = avr-gcc
-OBJCOPY = avr-objcopy
-OBJDUMP = avr-objdump
-SIZE    = avr-size
-NM      = avr-nm
+CC      = /Applications/Arduino.app/Contents/Java/hardware/tools/avr/bin/avr-gcc
+OBJCOPY = /Applications/Arduino.app/Contents/Java/hardware/tools/avr/bin/avr-objcopy
+OBJDUMP = /Applications/Arduino.app/Contents/Java/hardware/tools/avr/bin/avr-objdump
+SIZE    = /Applications/Arduino.app/Contents/Java/hardware/tools/avr/bin/avr-size
+NM      = /Applications/Arduino.app/Contents/Java/hardware/tools/avr/bin/avr-nm
 
 # Define all object files
 COBJ      = $(CSRC:.c=.o) 
@@ -159,7 +160,7 @@ size:
 %.elf:  $(AOBJ) $(COBJ)
 	@echo
 	@echo Linking...
-	$(CC) $(CFLAGS) $(AOBJ) $(COBJ) --output $@
+	$(CC) $(LIBDIRS) $(CFLAGS) $(LIBDIRS) $(AOBJ) $(COBJ) --output $@
 
 # Compile: create object files from C source files. ARM or Thumb(-2)
 $(COBJ) : $(OBJDIR)/%.o : %.c
